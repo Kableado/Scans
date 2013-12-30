@@ -8,6 +8,8 @@ function Scan($device,$resolution,$format,$destFileBase){
 	global $ScanImage;
 	global $PNMtoJPEG;
 	global $PNMtoPNG;
+	global $PNMtoPS;
+	global $PStoPDF;
 
 	$DestFile=$PreviewDir.$destFileBase;
 	$Command=$ScanImage." -d ".$device.
@@ -15,20 +17,34 @@ function Scan($device,$resolution,$format,$destFileBase){
 	if($format=="jpg"){
 		$DestFile.=".jpg";
 		$Command.=" | {$PNMtoJPEG} --quality=100 > ".$DestFile;
+		$Scan=shell_exec($Command);
 	}
 	if($format=="png"){
 		$DestFile.=".png";
 		$Command.=" | {$PNMtoPNG} > ".$DestFile;
+		$Scan=shell_exec($Command);
 	}
-	$Scan=shell_exec($Command);
+	if($format=="pdf"){
+		$DestFile2=$DestFile.".pnm";
+		$Command.=" > {$DestFile2}";
+		$Scan=shell_exec($Command);
+
+		$DestFile.=".pdf";
+		$Command="cat {$DestFile2} | {$PNMtoPS} | {$PStoPDF} - {$DestFile}";
+		$Convert=shell_exec($Command);
+	}
 	return $DestFile;
 }
 
 function CleanUp(){
 	global $PreviewDir;
+	$Command="rm -rf ".$PreviewDir."*.pnm";
+	$Delete=shell_exec($Command);
 	$Command="rm -rf ".$PreviewDir."*.png";
 	$Delete=shell_exec($Command);
 	$Command="rm -rf ".$PreviewDir."*.jpg";
+	$Delete=shell_exec($Command);
+	$Command="rm -rf ".$PreviewDir."*.pdf";
 	$Delete=shell_exec($Command);
 }
 
@@ -73,7 +89,6 @@ if(RequestParm("btnScan",false)){
 		$baseName="Scan-".date("Y-m-d_H_i_s");
 		$DestFile=Scan($Scanner,$Resolution,$Format,$baseName);
 		CropImage($DestFile);
-		CropImage($DestFile);
 	}else{
 		$baseName="Scan-".date("Y-m-d_H_i_s");
 		$DestFile=Scan($Scanner,$Resolution,$Format,$baseName);
@@ -88,7 +103,7 @@ echo '<form id="frmMain" method="GET" action="index.php">'."\n";
 DrawFieldInfo("Scanner",$SaneScanner);
 DrawFieldCombo("Resolution","ddlResolution",$Resolutions,$Resolution);
 DrawFieldCombo("Format","ddlFormat",$Formats,$Format);
-//DrawFieldCheckText("Cropping","chkCrop",$Crop,"txtCropFuzz",$CropFuzz);
+DrawFieldCheckText("Cropping","chkCrop",$Crop,"txtCropFuzz",$CropFuzz);
 DrawButton("Scan","btnScan");
 if($DestFile!=null){
 	$DestFileFixed=htmlentities($DestFile,ENT_HTML5, "UTF-8");

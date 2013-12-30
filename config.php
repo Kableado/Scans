@@ -7,6 +7,8 @@
 $ScanImage    = "/usr/bin/scanimage";
 $PNMtoJPEG    = "/usr/bin/pnmtojpeg";
 $PNMtoPNG     = "/usr/bin/pnmtopng";
+$PNMtoPS      = "/usr/bin/pnmtops";
+$PStoPDF      = "/usr/bin/ps2pdf14";
 $ImageMagik   = "/usr/bin/convert";
 
 // Destination dirs
@@ -29,7 +31,8 @@ $Resolution=200;
 // Formats
 $Formats=array(
 	"PNG"=>"png",
-	"JPEG/JPG"=>"jpg"
+	"JPEG/JPG"=>"jpg",
+	"PDF"=>"pdf"
 );
 $Format="png";
 
