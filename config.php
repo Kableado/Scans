@@ -7,6 +7,8 @@
 $ScanImage    = "/usr/bin/scanimage";
 $PNMtoJPEG    = "/usr/bin/pnmtojpeg";
 $PNMtoPNG     = "/usr/bin/pnmtopng";
+$PNMtoPS      = "/usr/bin/pnmtops";
+$PStoPDF      = "/usr/bin/ps2pdf14";
 $ImageMagik   = "/usr/bin/convert";
 
 // Destination dirs
@@ -29,12 +31,22 @@ $Resolution=200;
 // Formats
 $Formats=array(
 	"PNG"=>"png",
-	"JPEG/JPG"=>"jpg"
+	"JPEG/JPG"=>"jpg",
+	"PDF"=>"pdf"
 );
 $Format="png";
+
+// Size
+$Sizes=array(
+	"Full"=>"Full",
+	"A4"=>"A4",
+	"A5 Portrait"=>"A5Port",
+	"A5 Landscape"=>"A5Land",
+	"Letter"=>"Letter"
+);
+$Size="A4";
 
 // Cropping
 $Crop=false;
 $CropFuzz=50;
 
-?>
