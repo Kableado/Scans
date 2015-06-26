@@ -3,13 +3,35 @@
 include_once "config.php";
 include_once "utils.php";
 
+$Commands=array();
+
+function ExecCommand($command){
+	global $Commands;
+	$loggedCommand=array();
+	$loggedCommand["Command"]=$command;
+	list($returnCode, $stdout, $stderr)=ExecFull($command);
+	$loggedCommand["Result"]=$stdout;
+	$loggedCommand["Error"]=$stderr;
+	$loggedCommand["ReturnCode"]=$returnCode;
+	$Commands[]=$loggedCommand;
+	return $stdout;
+}
+
+function ShowCommandLog(){
+	global $Commands;
+	foreach($Commands as $loggedCommand){
+		DrawParagraph($loggedCommand["Command"],"font-weight: bold;");
+		DrawParagraph($loggedCommand["Result"]);
+		DrawParagraph($loggedCommand["Error"],"color: red;");
+	}
+}
+
+
 function Scan($device,$resolution,$format,$destFileBase){
 	global $PreviewDir;
 	global $ScanImage;
 	global $PNMtoJPEG;
 	global $PNMtoPNG;
-	global $PNMtoPS;
-	global $PStoPDF;
 
 	$DestFile=$PreviewDir.$destFileBase;
 	$Command=$ScanImage." -d ".$device.
@@ -17,35 +39,22 @@ function Scan($device,$resolution,$format,$destFileBase){
 	if($format=="jpg"){
 		$DestFile.=".jpg";
 		$Command.=" | {$PNMtoJPEG} --quality=100 > ".$DestFile;
-		$Scan=shell_exec($Command);
 	}
 	if($format=="png"){
 		$DestFile.=".png";
 		$Command.=" | {$PNMtoPNG} > ".$DestFile;
-		$Scan=shell_exec($Command);
 	}
-	if($format=="pdf"){
-		$DestFile2=$DestFile.".pnm";
-		$Command.=" > {$DestFile2}";
-		$Scan=shell_exec($Command);
-
-		$DestFile.=".pdf";
-		$Command="cat {$DestFile2} | {$PNMtoPS} | {$PStoPDF} - {$DestFile}";
-		$Convert=shell_exec($Command);
-	}
+	$Scan=ExecCommand($Command);
 	return $DestFile;
 }
 
 function CleanUp(){
+	global $Commands;
 	global $PreviewDir;
-	$Command="rm -rf ".$PreviewDir."*.pnm";
-	$Delete=shell_exec($Command);
 	$Command="rm -rf ".$PreviewDir."*.png";
-	$Delete=shell_exec($Command);
+	$Delete=ExecCommand($Command);
 	$Command="rm -rf ".$PreviewDir."*.jpg";
-	$Delete=shell_exec($Command);
-	$Command="rm -rf ".$PreviewDir."*.pdf";
-	$Delete=shell_exec($Command);
+	$Delete=ExecCommand($Command);
 }
 
 function MoveToDest($origFile){
@@ -53,20 +62,20 @@ function MoveToDest($origFile){
 	$destFile=basename($origFile);
 	$destFile=$FinalDestDir.$destFile;
 	$Command="cp ".$origFile." ".$destFile;
-	$Copy=shell_exec($Command);
+	$Copy=ExecCommand($Command);
 }
 
 function CropImage($file){
 	global $ImageMagik;
 	global $CropFuzz;
 	$Command=$ImageMagik." ".$file.' -fuzz '.$CropFuzz.'% -trim '.$file."\n";
-	$Cropping=shell_exec($Command);
+	$Cropping=ExecCommand($Command);
 }
 
 
 // Detect scanner
 $CMD=$ScanImage." --list-devices | grep device";
-$SaneScanner = `$CMD`;
+$SaneScanner = ExecCommand($CMD);
 unset($cmd);
 $start=strpos($SaneScanner,"`")+1;
 $laenge=strpos($SaneScanner,"'")-$start;
@@ -88,6 +97,7 @@ if(RequestParm("btnScan",false)){
 	if($Crop){
 		$baseName="Scan-".date("Y-m-d_H_i_s");
 		$DestFile=Scan($Scanner,$Resolution,$Format,$baseName);
+		CropImage($DestFile);
 		CropImage($DestFile);
 	}else{
 		$baseName="Scan-".date("Y-m-d_H_i_s");
@@ -114,5 +124,5 @@ if($DestFile!=null){
 }
 
 echo "</form>\n";
-
+ShowCommandLog();
 ?>
