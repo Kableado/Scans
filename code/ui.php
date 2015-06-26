@@ -78,11 +78,17 @@ function RenderCombo($id,$options,$selected){
 	return $render;
 }
 
-function RenderButton($id,$value){
+function RenderButton($id,$value,$onClick=""){
 	$idFixed=htmlentities($id,ENT_HTML5, "UTF-8");
 	$valueFixed=htmlentities($value,ENT_HTML5, "UTF-8");
-	return '<input type="submit" value="'.$valueFixed.'" '.
-		'id="'.$idFixed.'" name="'.$idFixed.'" class="button" />';
+	$render='<input type="submit" value="'.$valueFixed.'" '.
+		'id="'.$idFixed.'" name="'.$idFixed.'" class="button"';
+	if($onClick!=""){
+		$onClickFixed=htmlentities($onClick,ENT_HTML5, "UTF-8");
+		$render.=' onclick="'.$onClickFixed.'"';
+	}
+	$render.='/>'."\n";
+	return $render;
 }
 
 function RenderFieldInfo($text,$info){
@@ -125,10 +131,10 @@ function RenderFieldCombo($text,$idCombo,$options,$selected){
 	return $render;
 }
 
-function RenderFieldButton($text,$idButton,$value){
+function RenderFieldButton($text,$idButton,$value,$onClick=""){
 	$render='<div class="field">'."\n";
 	$render.=RenderLabel($text);
-	$render.=RenderButton($idButton,$value);
+	$render.=RenderButton($idButton,$value,$onClick);
 	$render.='</div>'."\n";
 	return $render;
 }
@@ -136,12 +142,27 @@ function RenderFieldButton($text,$idButton,$value){
 
 function RenderParagraph($text,$style=null){
 	if($text==null  || $text==""){ return ""; }
-	$textFixed=htmlentities($text,ENT_HTML5, "UTF-8");
-	if($style==null){
-		return "<p>".$textFixed."</p>\n";
-	}else{
-		return "<p style=\"".$style."\">".$textFixed."</p>\n";
+	$textLines=explode("\n",$text);
+	$render="";
+	foreach ($textLines as $line) {
+		$textFixed=htmlentities($line,ENT_HTML5, "UTF-8");
+		if($style==null){
+			$render.="<p>".$textFixed."</p>\n";
+		}else{
+			$render.="<p style=\"".$style."\">".$textFixed."</p>\n";
+		}
 	}
+	return $render;
 }
 
-
+function RenderDiv($idDiv,$innerHTML,$style=null){
+	$idFixed=htmlentities($idDiv,ENT_HTML5, "UTF-8");
+	if($style==null){
+		$render='<div id="'.$idFixed.'" >';
+	}else{
+		$render='<div id="'.$idFixed.'" style="'.$style.'">';
+	}
+	$render.=$innerHTML;
+	$render.='<div/>'."\n";
+	return $render;
+}
