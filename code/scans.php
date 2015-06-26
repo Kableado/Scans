@@ -18,15 +18,20 @@ function ExecCommand($command){
 	return $stdout;
 }
 
-function ShowCommandLog(){
+function RenderCommandLog(){
 	global $Commands;
+	$renderLog="";
 	foreach($Commands as $loggedCommand){
-		echo RenderParagraph($loggedCommand["Command"],"font-weight: bold;");
-		echo RenderParagraph($loggedCommand["Result"]);
-		echo RenderParagraph($loggedCommand["Error"],"color: red;");
+		$renderLog.=RenderParagraph($loggedCommand["Command"],"font-weight: bold;");
+		$renderLog.=RenderParagraph($loggedCommand["Result"]);
+		$renderLog.=RenderParagraph($loggedCommand["Error"],"color: red;");
 	}
+	
+	return RenderDiv("divConsoleContainer",
+		RenderButton("btnToggle","Log","var elem=document.getElementById('divConsole');if(elem.style.display==''){elem.style.display='none';}else{elem.style.display='';}return false;").
+		RenderDiv("divConsole",$renderLog,"display:none;")
+	);
 }
-
 
 function Scan($device,$resolution,$format,$size,$destFileBase){
 	global $PreviewDir;
@@ -165,5 +170,6 @@ if($DestFile!=null){
 }
 
 echo "</form>\n";
-ShowCommandLog();
+
+echo RenderCommandLog();
 
