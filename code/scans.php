@@ -2,6 +2,7 @@
 
 include_once "config.php";
 include_once "utils.php";
+include_once "ui.php";
 
 $Commands=array();
 
@@ -20,9 +21,9 @@ function ExecCommand($command){
 function ShowCommandLog(){
 	global $Commands;
 	foreach($Commands as $loggedCommand){
-		DrawParagraph($loggedCommand["Command"],"font-weight: bold;");
-		DrawParagraph($loggedCommand["Result"]);
-		DrawParagraph($loggedCommand["Error"],"color: red;");
+		echo RenderParagraph($loggedCommand["Command"],"font-weight: bold;");
+		echo RenderParagraph($loggedCommand["Result"]);
+		echo RenderParagraph($loggedCommand["Error"],"color: red;");
 	}
 }
 
@@ -110,11 +111,11 @@ if(RequestParm("btnScan",false)){
 echo '<form id="frmMain" method="GET" action="index.php">'."\n";
 
 // Render header info
-DrawFieldInfo("Scanner",$SaneScanner);
-DrawFieldCombo("Resolution","ddlResolution",$Resolutions,$Resolution);
-DrawFieldCombo("Format","ddlFormat",$Formats,$Format);
-DrawFieldCheckText("Cropping","chkCrop",$Crop,"txtCropFuzz",$CropFuzz);
-DrawButton("Scan","btnScan");
+echo RenderFieldInfo("Scanner",$SaneScanner);
+echo RenderFieldCombo("Resolution","ddlResolution",$Resolutions,$Resolution);
+echo RenderFieldCombo("Format","ddlFormat",$Formats,$Format);
+echo RenderFieldCheckText("Cropping","chkCrop",$Crop,"txtCropFuzz",$CropFuzz);
+echo RenderFieldButton("","btnScan","Scan");
 if($DestFile!=null){
 	$DestFileFixed=htmlentities($DestFile,ENT_HTML5, "UTF-8");
 	echo '<div><a href="'.$DestFileFixed.'">'.
@@ -125,4 +126,4 @@ if($DestFile!=null){
 
 echo "</form>\n";
 ShowCommandLog();
-?>
+
