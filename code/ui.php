@@ -20,7 +20,7 @@ function RenderText($idText,$value){
 	$render='<div class="fieldContent">'."\n";
 	$render.='<input type="text" id="'.$idTextFixed.'" name="'.$idTextFixed.'"'.
 		' value="'.$valueFixed.'" '.
-		' class="textBox"/>'."\n";
+		' class="textBox width100px"/>'."\n";
 	$render.="</div>\n";
 	return $render;
 }
@@ -49,7 +49,7 @@ function RenderCheckText($idCheck,$checked,$idText,$value){
 	if($checked){ $render.=" checked "; }
 	$render.='class="check" />'."\n";
 	$render.='<input type="text" id="'.$idTextFixed.'" name="'.$idTextFixed.'" '.
-		'value="'.$valueFixed.'" class="textBox" />';
+		'value="'.$valueFixed.'" class="textBox width50px" />';
 	$render.="</input>\n";
 	$render.="</div>\n";
 	return $render;
@@ -59,7 +59,7 @@ function RenderCombo($id,$options,$selected){
 	$idFixed=htmlentities($id,ENT_HTML5, "UTF-8");
 	$render='<div class="fieldContent">'."\n";
 	$render.='<select id="'.$idFixed.'" name="'.$idFixed.'" '.
-		'class="combo">'."\n";
+		'class="combo width100px">'."\n";
 	foreach ($options as $key => $value) {
 		$keyFixed=htmlentities($key,ENT_HTML5, "UTF-8");
 		$valueFixed=htmlentities($value,ENT_HTML5, "UTF-8");

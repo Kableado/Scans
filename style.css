@@ -112,3 +112,13 @@ form{
 	height: calc(100% - 35px);
 	border: solid 1px rgb(32,32,32);
 }
+
+.width100px {
+	width: 100px;
+	max-width: 100%;
+}
+
+.width50px {
+	width: 50px;
+	max-width: 100%;
+}
