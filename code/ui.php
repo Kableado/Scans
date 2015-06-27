@@ -140,29 +140,47 @@ function RenderFieldButton($text,$idButton,$value,$onClick=""){
 }
 
 
-function RenderParagraph($text,$style=null){
+function RenderParagraph($text,$class=null){
 	if($text==null  || $text==""){ return ""; }
 	$textLines=explode("\n",$text);
 	$render="";
 	foreach ($textLines as $line) {
 		$textFixed=htmlentities($line,ENT_HTML5, "UTF-8");
-		if($style==null){
+		if($class==null){
 			$render.="<p>".$textFixed."</p>\n";
 		}else{
-			$render.="<p style=\"".$style."\">".$textFixed."</p>\n";
+			$render.="<p class=\"".$class."\">".$textFixed."</p>\n";
 		}
 	}
 	return $render;
 }
 
-function RenderDiv($idDiv,$innerHTML,$style=null){
+function RenderDiv($idDiv,$innerHTML,$class=null,$style=null){
 	$idFixed=htmlentities($idDiv,ENT_HTML5, "UTF-8");
-	if($style==null){
-		$render='<div id="'.$idFixed.'" >';
-	}else{
-		$render='<div id="'.$idFixed.'" style="'.$style.'">';
+	$render='<div id="'.$idFixed.'"';
+	if($class!=null){
+		$render.=' class="'.$class.'"';
 	}
+	if($style!=null){
+		$render.=' style="'.$style.'"';
+	}
+	$render.=' >'."\n";
 	$render.=$innerHTML;
-	$render.='<div/>'."\n";
+	$render.='</div>'."\n";
+	return $render;
+}
+
+function RenderHidden($id,$value){
+	$idFixed=htmlentities($id,ENT_HTML5, "UTF-8");
+	$valueFixed=htmlentities($value,ENT_HTML5, "UTF-8");
+	return '<input type="hidden" value="'.$valueFixed.'" '.
+		'id="'.$idFixed.'" name="'.$idFixed.'" />'."\n";
+}
+
+function RenderForm($id,$innerHTML){
+	$idFixed=htmlentities($id,ENT_HTML5, "UTF-8");
+	$render='<form id="'.$idFixed.'" method="POST" action="'.$_SERVER['PHP_SELF'].'">'."\n";
+	$render.=$innerHTML;
+	$render.='</form>'."\n";
 	return $render;
 }

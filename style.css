@@ -1,24 +1,16 @@
-* {margin:0;padding:0;border:none;font-family:Arial,sans-serif; color:rgb(32,32,32);background-color:white; box-sizing:border-box; -moz-box-sizing:border-box;}
-h1{
-	font-size: 30px;
-	color: rgb(128,128,128);
-	margin:5px;
-	margin-top:10px;
-}
-h1:first-child{
-	margin-top:5px;
-}
+* {margin:0;padding:0;border:none;font-family:Arial,sans-serif; color:rgb(32,32,32);background-color: #E9F0F0; box-sizing:border-box; -moz-box-sizing:border-box;}
 
+h1{
+	font-size: 40px;
+	color: rgb(128,128,128);
+	margin:15px;
+}
 .field{
 	display:block;
 	white-space:nowrap;
 	vertical-align:top;
 	font-size:0;
-	margin:5px;
-	margin-top:10px;
-}
-.field:first-child{
-	margin-top:5px;
+	margin:15px;
 }
 .fieldLabel{
 	display:inline-block;
@@ -27,7 +19,7 @@ h1:first-child{
 	vertical-align:top;
 	white-space: normal;
 	word-break: break-word;
-	font-size:14px;
+	font-size:16px;
 }
 .fieldContent{
 	display:inline-block;
@@ -35,21 +27,25 @@ h1:first-child{
 	white-space: normal;
 	vertical-align:top;
 	word-break: break-word;
-	font-size:14px;
+	font-size:16px;
 }
 
 .combo{
 	min-width:100px;
 	border: solid 1px rgb(32,32,32);
+	background-color: white;
 }
 
 .button{
 	display:inline-block;
 	padding:5px;
 	margin:0;
+	margin-top: 5px;
 	background-color: rgb(192,192,192);
 	border: solid 1px rgb(32,32,32);
 	cursor:pointer;
+	font-size:14px;
+	text-decoration: none;
 }
 .button:hover{
 	background-color: rgb(240,240,240);
@@ -57,6 +53,8 @@ h1:first-child{
 
 .textBox{
 	border: solid 1px rgb(32,32,32);
+	font-size:14px;
+	background-color: white;
 }
 
 .previewImage{
@@ -84,4 +82,14 @@ h1:first-child{
 	color: grey;
 	background-color: black;
 	font-family: Monospace;
+}
+#divConsole p.command{
+	font-weight: bold;
+}
+#divConsole p.error{
+	color: red;
+}
+
+.divHidden{
+	display: none;
 }
