@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<?php
+	header('X-UA-Compatible: IE=edge');
+	include_once "code/errorHandler.php";
+?><!DOCTYPE html>
 <html>
 <head>
 <title>Scans</title>
@@ -7,7 +10,6 @@
 <body>
 <h1>Scans</h1>
 <?php
-	include_once "code/errorHandler.php";
 	include_once "code/main.php";
 ?>
 </body>
