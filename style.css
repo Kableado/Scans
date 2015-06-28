@@ -7,6 +7,7 @@ h1{
 	font-size: 40px;
 	color: rgb(128,128,128);
 	padding:15px;
+	padding-bottom: 0;
 }
 .field{
 	display:block;
@@ -43,7 +44,6 @@ h1{
 	display:inline-block;
 	padding:5px;
 	margin:0;
-	margin-top: 5px;
 	background-color: rgb(192,192,192);
 	border: solid 1px rgb(32,32,32);
 	cursor:pointer;
@@ -88,7 +88,7 @@ h1{
 
 form{
 	white-space: nowrap;
-	height: calc(100% - 120px);
+	height: calc(100% - 105px);
 }
 
 #divColLeft{
@@ -96,6 +96,10 @@ form{
 	display: inline-block;
 	width:40%;
 	vertical-align:top;
+}
+
+#divColLeft .button{
+	margin-top: 5px;
 }
 
 #divColRight{
@@ -111,6 +115,10 @@ form{
 	width:100%;
 	height: calc(100% - 35px);
 	border: solid 1px rgb(32,32,32);
+}
+
+#divColRight .button{
+	margin-bottom: 5px;
 }
 
 .divLoadBack{
