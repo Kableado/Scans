@@ -65,11 +65,11 @@ function RenderCombo($id,$options,$selected){
 		$valueFixed=htmlentities($value,ENT_HTML5, "UTF-8");
 		if($value==$selected){
 			$render.='<option value="'.$valueFixed.
-				'" title="'.$valueFixed.'" selected >'.
+				'" title="'.$keyFixed.'" selected >'.
 				$keyFixed."</option>/n";
 		}else{
 			$render.='<option value="'.$valueFixed.
-				'" title="'.$valueFixed.'">'.
+				'" title="'.$keyFixed.'">'.
 				$keyFixed."</option>/n";
 		}
 	}
