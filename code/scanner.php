@@ -24,8 +24,7 @@ function Scan($device,$resolution,$format,$size,$destFileBase){
 	global $ScanImage;
 	global $PNMtoJPEG;
 	global $PNMtoPNG;
-	global $PNMtoPS;
-	global $PStoPDF;
+	global $ImageMagik;
 
 	$DestFile=$PreviewDir.$destFileBase;
 	$Command=$ScanImage." -d ".$device.
@@ -57,26 +56,12 @@ function Scan($device,$resolution,$format,$size,$destFileBase){
 		$Scan=ExecCommand($Command);
 	}
 	if($format=="pdf"){
-		$DestFile2=$DestFile.".pnm";
-		$Command.=" > {$DestFile2}";
+		$DestFile2=$DestFile.".jpg";
+		$Command.=" | {$PNMtoJPEG} --quality=100 > ".$DestFile2;
 		$Scan=ExecCommand($Command);
-
 		$DestFile.=".pdf";
-		$Command="cat {$DestFile2} | {$PNMtoPS}";
-		if($size=="A4"){
-			$Command.=" -width=8.3 -height=11.7 ";
-		}
-		if($size=="A5Port"){
-			$Command.=" -width=5.8 -height=8.3 ";
-		}
-		if($size=="A5Land"){
-			$Command.=" -width=8.3 -height=5.8 ";
-		}
-		if($size=="Letter"){
-			$Command.=" -width=8.5 -height=11 ";
-		}
-		$Command.=" | {$PStoPDF} - {$DestFile}";
-		$Convert=ExecCommand($Command);
+		$Command=$ImageMagik." ".$DestFile2." ".$DestFile;
+		$Scan=ExecCommand($Command);
 	}
 	return $DestFile;
 }
