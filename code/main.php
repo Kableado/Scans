@@ -64,7 +64,7 @@ $formFields.=RenderFieldCombo(MultiLang::GetString("Resolution"),"ddlResolution"
 $formFields.=RenderFieldCombo(MultiLang::GetString("Format"),"ddlFormat",$Formats,$Format);
 $formFields.=RenderFieldCombo(MultiLang::GetString("Size"),"ddlSize",$Sizes,$Size);
 //$formFields.=RenderFieldCheckText("Cropping","chkCrop",$Crop,"txtCropFuzz",$CropFuzz);
-$formFields.=RenderFieldButton("","btnScan",MultiLang::GetString("Scan"),"var elem=document.getElementById('divLoadBack');elem.style.display='';");
+$formFields.=RenderFieldButton("","btnScan",MultiLang::GetString("Scan"),"Element_SetVisibility('divLoadBack',true);");
 $formFields.=RenderHidden("hidScanDevice",$Scanner["ScanDevice"]);
 $formFields.=RenderHidden("hidScanModel",$Scanner["ScanModel"]);
 $columns="";
