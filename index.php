@@ -6,6 +6,7 @@
 <head>
 <title>Scans</title>
 <link href="style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="script.js"></script>
 </head>
 <body>
 <h1>Scans</h1>

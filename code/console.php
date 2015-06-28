@@ -24,7 +24,7 @@ function RenderCommandLog(){
 	}
 	
 	return RenderDiv("divConsoleContainer",
-		RenderButton("btnToggle","Log","var elem=document.getElementById('divConsole');if(elem.style.display==''){elem.style.display='none';}else{elem.style.display='';}return false;").
+		RenderButton("btnToggle","Log","Element_ToggleVisibility('divConsole');return false;").
 		RenderDiv("divConsole",$renderLog,null,"display:none;")
 	);
 }
