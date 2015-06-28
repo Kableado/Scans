@@ -9,9 +9,9 @@ function GetElement(element){
 function Element_SetVisibility(element,visible){
 	element=GetElement(element);
 	if(visible){
-		element.style.display="none";
+		element.style.display="";
 	}else{
-		element.style.display=""
+		element.style.display="none"
 	}
 }
 
