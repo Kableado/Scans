@@ -7,14 +7,21 @@ include_once "console.php";
 include_once "scanner.php";
 
 function RenderDocument($filePath){
-	$filename=pathinfo($filePath)["basename"];
-	$filePathFixed=htmlentities($filePath,ENT_HTML5, "UTF-8");
-	$filenameFixed=htmlentities($filename,ENT_HTML5, "UTF-8");
 	$render="";
-	$render.='<div><a href="'.$filePathFixed.'" class="button" download="'.$filenameFixed.'">'.
-		'Download</a></div>'."\n";
-	$render.='<iframe src="'.$filePathFixed.'" '.
-		'class="previewDoc" ></iframe>';
+	if($filePath!=null){
+		$filename=pathinfo($filePath)["basename"];
+		$filePathFixed=htmlentities($filePath,ENT_HTML5, "UTF-8");
+		$filenameFixed=htmlentities($filename,ENT_HTML5, "UTF-8");
+		$render.='<div><a href="'.$filePathFixed.'" class="button" download="'.$filenameFixed.'">'.
+			'Download</a></div>'."\n";
+		$render.='<iframe src="'.$filePathFixed.'" '.
+			'class="previewDoc" ></iframe>';
+	}else{
+		$render.='<div><button class="button" disabled="disabled">'.
+			'Download</button></div>'."\n";
+		$render.='<iframe src="about:blank" '.
+			'class="previewDoc" ></iframe>';
+	}
 	return $render;
 }
 
@@ -58,11 +65,7 @@ $formFields.=RenderHidden("hidScanDevice",$Scanner["ScanDevice"]);
 $formFields.=RenderHidden("hidScanModel",$Scanner["ScanModel"]);
 $columns="";
 $columns.=renderDiv("divColLeft",$formFields);
-$result="";
-if($DestFile!=null){
-	$result.=RenderDocument($DestFile);
-}
-$columns.=renderDiv("divColRight",$result);
+$columns.=renderDiv("divColRight",RenderDocument($DestFile));
 $columns.=RenderCommandLog();
 $columns.=RenderDiv("divLoadBack",RenderDiv("divLoading","Loading","divLoading"),"divLoadBack","display:none;");
 echo RenderForm("frmMain",$columns);
