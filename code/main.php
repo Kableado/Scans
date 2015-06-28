@@ -59,7 +59,7 @@ $formFields.=RenderFieldInfo("Scanner",$Scanner["ScanModel"]);
 $formFields.=RenderFieldCombo("Resolution","ddlResolution",$Resolutions,$Resolution);
 $formFields.=RenderFieldCombo("Format","ddlFormat",$Formats,$Format);
 $formFields.=RenderFieldCombo("Size","ddlSize",$Sizes,$Size);
-$formFields.=RenderFieldCheckText("Cropping","chkCrop",$Crop,"txtCropFuzz",$CropFuzz);
+//$formFields.=RenderFieldCheckText("Cropping","chkCrop",$Crop,"txtCropFuzz",$CropFuzz);
 $formFields.=RenderFieldButton("","btnScan","Scan","var elem=document.getElementById('divLoadBack');elem.style.display='';");
 $formFields.=RenderHidden("hidScanDevice",$Scanner["ScanDevice"]);
 $formFields.=RenderHidden("hidScanModel",$Scanner["ScanModel"]);
