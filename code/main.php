@@ -9,6 +9,8 @@ include_once "scanner.php";
 include_once "multilang.php";
 MultiLang::LoadFile("ui");
 
+include_once "timingStatistics.php";
+$timings=new TimingStatistics();
 
 function RenderDocument($filePath){
 	$render="";
@@ -45,9 +47,12 @@ $Size=RequestParm("ddlSize",$Size);
 $Crop=RequestParm("chkCrop",$Crop)!=false;
 $CropFuzz=RequestParm("txtCropFuzz",$CropFuzz);
 
+$CurrentKey=$Scanner["ScanDevice"]."_".$Resolution."_".$Format."_".$Size;
+
 // Preprocess
 $DestFile=null;
 if(RequestParm("btnScan",false)){
+	$timeThen=time()+microtime();
 	CleanUp();
 	$baseName="Scan-".date("Y-m-d_H_i_s");
 	$DestFile=Scan($Scanner["ScanDevice"],$Resolution,$Format,$Size,$baseName);
@@ -55,7 +60,16 @@ if(RequestParm("btnScan",false)){
 		CropImage($DestFile);
 	}
 	MoveToDest($DestFile);
+	$timeNow=time()+microtime();
+	$timings->RegisterTiming($CurrentKey,$timeNow-$timeThen);
 }
+
+// Pass the JSON object of timings to client
+echo "<script>\n";
+echo "var timings=";
+echo json_encode($timings->GetTimingsAverage(),JSON_PRETTY_PRINT);
+echo ";\n";
+echo "</script>\n";
 
 // Render Form
 $formFields="";
