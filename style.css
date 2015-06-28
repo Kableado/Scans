@@ -141,11 +141,30 @@ form{
 	line-height: 30px;
 	width: 150px;
 	text-align: center;
-	height: 50px;
-	margin: -25px auto 0px -75px;
+	height: 75px;
+	margin: -37px auto 0px -75px;
 	background-image: url("images/loading.gif");
 	background-repeat: no-repeat;
-	background-position: 25px;
+	background-position: 25px 20px;
+}
+
+.divProgressCont{
+	position:absolute;
+	top: 40px;
+	left: 12px;
+	width: 125px;
+	height: 20px;
+	box-sizing: border-box;
+	border: solid 1px black;
+}
+
+.divProgressBar{
+	position:absolute;
+	top: 0;
+	left: 0;
+	height: 18px;
+	background-color: black;
+	box-sizing: border-box;
 }
 
 .width100px {

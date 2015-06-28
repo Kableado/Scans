@@ -78,14 +78,19 @@ $formFields.=RenderFieldCombo(MultiLang::GetString("Resolution"),"ddlResolution"
 $formFields.=RenderFieldCombo(MultiLang::GetString("Format"),"ddlFormat",$Formats,$Format);
 $formFields.=RenderFieldCombo(MultiLang::GetString("Size"),"ddlSize",MultiLang::ApplyArrayKeys($Sizes),$Size);
 //$formFields.=RenderFieldCheckText("Cropping","chkCrop",$Crop,"txtCropFuzz",$CropFuzz);
-$formFields.=RenderFieldButton("","btnScan",MultiLang::GetString("Scan"),"Element_SetVisibility('divLoadBack',true);");
+$formFields.=RenderFieldButton("","btnScan",MultiLang::GetString("Scan"),"ShowProgressDialog();");
 $formFields.=RenderHidden("hidScanDevice",$Scanner["ScanDevice"]);
 $formFields.=RenderHidden("hidScanModel",$Scanner["ScanModel"]);
 $columns="";
 $columns.=renderDiv("divColLeft",$formFields);
 $columns.=renderDiv("divColRight",RenderDocument($DestFile));
 $columns.=RenderCommandLog();
-$columns.=RenderDiv("divLoadBack",RenderDiv("divLoading",MultiLang::GetString("Loading"),"divLoading"),"divLoadBack","display:none;");
+$columns.=RenderDiv("divLoadBack",
+		RenderDiv("divLoading",
+			MultiLang::GetString("Loading").
+			RenderDiv("divProgressCont",RenderDiv("divProgressBar","","divProgressBar"),"divProgressCont"),
+			"divLoading"),
+	"divLoadBack","display:none;");
 echo RenderForm("frmMain",$columns);
 
 
