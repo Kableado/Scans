@@ -7,9 +7,9 @@
 	"Scan": "Scan",
 	"Loading": "Loading",
 	"Full": "Full",
-	"A4": "A4",
-	"A5 Portrait": "A5 Portrait",
-	"A5 Landscape": "A5 Landscape",
+	"A4": "DIN A4",
+	"A5 Portrait": "DIN A5 Portrait",
+	"A5 Landscape": "DIN A5 Landscape",
 	"Letter": "US Letter",
 	"": ""
 }
