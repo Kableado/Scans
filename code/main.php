@@ -6,6 +6,10 @@ include_once "ui.php";
 include_once "console.php";
 include_once "scanner.php";
 
+include_once "multilang.php";
+MultiLang::LoadFile("ui");
+
+
 function RenderDocument($filePath){
 	$render="";
 	if($filePath!=null){
@@ -13,12 +17,12 @@ function RenderDocument($filePath){
 		$filePathFixed=htmlentities($filePath,ENT_HTML5, "UTF-8");
 		$filenameFixed=htmlentities($filename,ENT_HTML5, "UTF-8");
 		$render.='<div><a href="'.$filePathFixed.'" class="button" download="'.$filenameFixed.'">'.
-			'Download</a></div>'."\n";
+			MultiLang::GetString("Download").'</a></div>'."\n";
 		$render.='<iframe src="'.$filePathFixed.'" '.
 			'class="previewDoc" ></iframe>';
 	}else{
 		$render.='<div><button class="button" disabled="disabled">'.
-			'Download</button></div>'."\n";
+			MultiLang::GetString("Download").'</button></div>'."\n";
 		$render.='<iframe src="about:blank" '.
 			'class="previewDoc" ></iframe>';
 	}
@@ -55,19 +59,19 @@ if(RequestParm("btnScan",false)){
 
 // Render Form
 $formFields="";
-$formFields.=RenderFieldInfo("Scanner",$Scanner["ScanModel"]);
-$formFields.=RenderFieldCombo("Resolution","ddlResolution",$Resolutions,$Resolution);
-$formFields.=RenderFieldCombo("Format","ddlFormat",$Formats,$Format);
-$formFields.=RenderFieldCombo("Size","ddlSize",$Sizes,$Size);
+$formFields.=RenderFieldInfo(MultiLang::GetString("Scanner"),$Scanner["ScanModel"]);
+$formFields.=RenderFieldCombo(MultiLang::GetString("Resolution"),"ddlResolution",$Resolutions,$Resolution);
+$formFields.=RenderFieldCombo(MultiLang::GetString("Format"),"ddlFormat",$Formats,$Format);
+$formFields.=RenderFieldCombo(MultiLang::GetString("Size"),"ddlSize",$Sizes,$Size);
 //$formFields.=RenderFieldCheckText("Cropping","chkCrop",$Crop,"txtCropFuzz",$CropFuzz);
-$formFields.=RenderFieldButton("","btnScan","Scan","var elem=document.getElementById('divLoadBack');elem.style.display='';");
+$formFields.=RenderFieldButton("","btnScan",MultiLang::GetString("Scan"),"var elem=document.getElementById('divLoadBack');elem.style.display='';");
 $formFields.=RenderHidden("hidScanDevice",$Scanner["ScanDevice"]);
 $formFields.=RenderHidden("hidScanModel",$Scanner["ScanModel"]);
 $columns="";
 $columns.=renderDiv("divColLeft",$formFields);
 $columns.=renderDiv("divColRight",RenderDocument($DestFile));
 $columns.=RenderCommandLog();
-$columns.=RenderDiv("divLoadBack",RenderDiv("divLoading","Loading","divLoading"),"divLoadBack","display:none;");
+$columns.=RenderDiv("divLoadBack",RenderDiv("divLoading",MultiLang::GetString("Loading"),"divLoading"),"divLoadBack","display:none;");
 echo RenderForm("frmMain",$columns);
 
 
