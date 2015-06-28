@@ -41,6 +41,11 @@ class TimingStatistics{
 		$this->values[$keyName][]=$time;
 		if(count($this->values[$keyName])>5){
 			unset($this->values[$keyName][0]);
+			$tempArray=array();
+			foreach ($this->values[$keyName] as $value) {
+				$tempArray[]=$value;
+			}
+			$this->values[$keyName]=$tempArray;
 		}
 		$this->SaveValues();
 	}
