@@ -113,6 +113,33 @@ form{
 	border: solid 1px rgb(32,32,32);
 }
 
+.divLoadBack{
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	background: rgba(0, 0, 0, 0.4) none repeat scroll 0% 0%;
+}
+
+.divLoading{
+	display: block;
+	left: 50%;
+	position: absolute;
+	top: 50%;
+	border: 1px solid black;
+	padding: 10px 10px 10px 50px;
+	box-sizing: border-box;
+	line-height: 30px;
+	width: 150px;
+	text-align: center;
+	height: 50px;
+	margin: -25px auto 0px -75px;
+	background-image: url("images/loading.gif");
+	background-repeat: no-repeat;
+	background-position: 25px;
+}
+
 .width100px {
 	width: 100px;
 	max-width: 100%;
