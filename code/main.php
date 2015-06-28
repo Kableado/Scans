@@ -53,7 +53,7 @@ $formFields.=RenderFieldCombo("Resolution","ddlResolution",$Resolutions,$Resolut
 $formFields.=RenderFieldCombo("Format","ddlFormat",$Formats,$Format);
 $formFields.=RenderFieldCombo("Size","ddlSize",$Sizes,$Size);
 $formFields.=RenderFieldCheckText("Cropping","chkCrop",$Crop,"txtCropFuzz",$CropFuzz);
-$formFields.=RenderFieldButton("","btnScan","Scan");
+$formFields.=RenderFieldButton("","btnScan","Scan","var elem=document.getElementById('divLoadBack');elem.style.display='';");
 $formFields.=RenderHidden("hidScanDevice",$Scanner["ScanDevice"]);
 $formFields.=RenderHidden("hidScanModel",$Scanner["ScanModel"]);
 $columns="";
@@ -64,6 +64,7 @@ if($DestFile!=null){
 }
 $columns.=renderDiv("divColRight",$result);
 $columns.=RenderCommandLog();
+$columns.=RenderDiv("divLoadBack",RenderDiv("divLoading","Loading","divLoading"),"divLoadBack","display:none;");
 echo RenderForm("frmMain",$columns);
 
 
