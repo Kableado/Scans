@@ -1,9 +1,11 @@
 <?php
-	header('X-UA-Compatible: IE=edge');
 	include_once "code/errorHandler.php";
+	header("Content-Type: text/html; charset=utf-8");
+	header("X-UA-Compatible: IE=edge'");
 ?><!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Scans</title>
 <link href="style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="script.js"></script>
