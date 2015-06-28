@@ -54,5 +54,12 @@ class MultiLang {
 		return $lang;
 	}
 
+	public static function ApplyArrayKeys($array){
+		$arrayTranslated=array();
+		foreach ($array as $key => $value) {
+			$arrayTranslated[MultiLang::GetString($key)]=$value;
+		}
+		return $arrayTranslated;
+	}
 }
 ################################

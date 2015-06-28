@@ -18,11 +18,11 @@ $FinalDestDir = "/store/Escaneos/";
 
 // Resolution
 $Resolutions=array(
-	"100"=>100,
-	"150"=>150,
-	"200"=>200,
-	"300"=>300,
-	"600"=>600
+	"100 DPI"=>100,
+	"150 DPI"=>150,
+	"200 DPI"=>200,
+	"300 DPI"=>300,
+	"600 DPI"=>600
 );
 $Resolution=200;
 
