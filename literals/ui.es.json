@@ -7,9 +7,9 @@
 	"Scan": "Escanear",
 	"Loading": "Cargando",
 	"Full": "Completo",
-	"A4": "A4",
-	"A5 Portrait": "A5 Vertical",
-	"A5 Landscape": "A5 Horizontal",
+	"A4": "DIN A4",
+	"A5 Portrait": "DIN A5 Vertical",
+	"A5 Landscape": "DIN A5 Horizontal",
 	"Letter": "US Letter",
 	"": ""
 }
