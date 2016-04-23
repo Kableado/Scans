@@ -91,6 +91,27 @@ function RenderButton($id,$value,$onClick=""){
 	return $render;
 }
 
+function RenderLinkButton($id,$text,$href="",$download="",$onClick=""){
+	$idFixed=htmlentities($id,ENT_HTML5, "UTF-8");
+	
+	$render='<a class="button" ';
+	if($href!=""){
+		$hrefFixed=htmlentities($href,ENT_HTML5, "UTF-8");
+		$render.=' href="'.$hrefFixed.'"';
+	}
+	if($download!=""){
+		$downloadFixed=htmlentities($download,ENT_HTML5, "UTF-8");
+		$render.=' download="'.$downloadFixed.'"';
+	}
+	if($onClick!=""){
+		$onClickFixed=htmlentities($onClick,ENT_HTML5, "UTF-8");
+		$render.=' onclick="'.$onClickFixed.'"';
+	}
+	$render.='>'.$text.'</a>'."\n";
+
+	return $render;
+}
+
 function RenderFieldInfo($text,$info){
 	$render='<div class="field">'."\n";
 	$render.=RenderLabel($text);
@@ -138,6 +159,16 @@ function RenderFieldButton($text,$idButton,$value,$onClick=""){
 	$render.='</div>'."\n";
 	return $render;
 }
+
+function RenderFieldLinkButton($text,$linkText,$href="",$download="",$onClick=""){
+	$render='<div class="field">'."\n";
+	$render.=RenderLabel($text);
+	$render.=RenderLinkButton($idButton,$href,$download,$onClick);
+
+	$render.='</div>'."\n";
+	return $render;
+}
+
 
 
 function RenderParagraph($text,$class=null){

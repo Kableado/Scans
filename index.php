@@ -10,7 +10,7 @@
 <link href="style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="script.js"></script>
 </head>
-<body>
+<body oncontextmenu="return false;">
 <h1>Scans</h1>
 <?php
 	include_once "code/main.php";
