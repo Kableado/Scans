@@ -48,3 +48,5 @@ $Size="A4";
 $Crop=false;
 $CropFuzz=50;
 
+// Prefix
+$Prefix="Scan";

@@ -15,16 +15,10 @@ $timings=new TimingStatistics();
 function RenderDocument($filePath){
 	$render="";
 	if($filePath!=null){
-		$filename=pathinfo($filePath)["basename"];
 		$filePathFixed=htmlentities($filePath,ENT_HTML5, "UTF-8");
-		$filenameFixed=htmlentities($filename,ENT_HTML5, "UTF-8");
-		$render.='<div><a href="'.$filePathFixed.'" class="button" download="'.$filenameFixed.'">'.
-			MultiLang::GetString("Download").'</a></div>'."\n";
 		$render.='<iframe src="'.$filePathFixed.'" '.
 			'class="previewDoc" ></iframe>';
 	}else{
-		$render.='<div><button class="button" disabled="disabled">'.
-			MultiLang::GetString("Download").'</button></div>'."\n";
 		$render.='<iframe src="about:blank" '.
 			'class="previewDoc" ></iframe>';
 	}
@@ -46,6 +40,7 @@ $Format=RequestParm("ddlFormat",$Format);
 $Size=RequestParm("ddlSize",$Size);
 $Crop=RequestParm("chkCrop",$Crop)!=false;
 $CropFuzz=RequestParm("txtCropFuzz",$CropFuzz);
+$Prefix=RequestParm("txtPrefix",$Prefix);
 
 $CurrentKey=$Scanner["ScanDevice"]."_".$Resolution."_".$Format."_".$Size;
 
@@ -54,7 +49,7 @@ $DestFile=null;
 if(RequestParm("btnScan",false)){
 	$timeThen=time()+microtime();
 	CleanUp();
-	$baseName="Scan-".date("Y-m-d_H_i_s");
+	$baseName=$Prefix."-".date("Y-m-d_H_i_s");
 	$DestFile=Scan($Scanner["ScanDevice"],$Resolution,$Format,$Size,$baseName);
 	if($Crop){
 		CropImage($DestFile);
@@ -71,6 +66,7 @@ echo json_encode($timings->GetTimingsAverage(),JSON_PRETTY_PRINT);
 echo ";\n";
 echo "</script>\n";
 
+
 // Render Form
 $formFields="";
 $formFields.=RenderFieldInfo(MultiLang::GetString("Scanner"),$Scanner["ScanModel"]);
@@ -78,7 +74,9 @@ $formFields.=RenderFieldCombo(MultiLang::GetString("Resolution"),"ddlResolution"
 $formFields.=RenderFieldCombo(MultiLang::GetString("Format"),"ddlFormat",$Formats,$Format);
 $formFields.=RenderFieldCombo(MultiLang::GetString("Size"),"ddlSize",MultiLang::ApplyArrayKeys($Sizes),$Size);
 //$formFields.=RenderFieldCheckText("Cropping","chkCrop",$Crop,"txtCropFuzz",$CropFuzz);
+$formFields.=RenderFieldText(MultiLang::GetString("Prefix"),"txtPrefix",$Prefix);
 $formFields.=RenderFieldButton("","btnScan",MultiLang::GetString("Scan"),"ShowProgressDialog();");
+$formFields.=RenderFieldLinkButton("","btnDownload",MultiLang::GetString("Download"),$DestFile,pathinfo($DestFile)["basename"],"");
 $formFields.=RenderHidden("hidScanDevice",$Scanner["ScanDevice"]);
 $formFields.=RenderHidden("hidScanModel",$Scanner["ScanModel"]);
 $columns="";
